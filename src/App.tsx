@@ -1,11 +1,12 @@
 import Header from "./components/Header"
 import Hero from "./components/Hero"
+
 function App() {
-  return(
-  <>
-    <Header />
-    <Hero />
-  </>
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <Hero />
+    </div>
   )
 }
 
