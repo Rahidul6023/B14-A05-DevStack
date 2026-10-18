@@ -22,6 +22,14 @@ function TechStack() {
     function removeAll(){
         setSelectedTechs([])
     }
+    function handleCrossClick(id:string){
+        setSelectedTechs(prev=>{
+            const selectedTech: Technology[] = prev.filter((e)=>e.id!=id)
+            return(
+                selectedTech
+            )
+        })
+    }
 
     return (
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
@@ -98,6 +106,7 @@ function TechStack() {
                                         </div>
                                         <button
                                             className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+                                            onClick={()=>handleCrossClick(tech.id)}
                                         >
                                             <svg
                                                 className="h-4 w-4"
