@@ -9,6 +9,14 @@ function TechStack(){
     useEffect(()=>{
         setTechnologies(technologies)
     },[])
+    function handleAddToStack(id: string){
+        setSelectedTechs(prev=>{
+            const selectedTech:Technology[] = technology.filter(e=>e.id===id)
+            return(
+                [...prev,...selectedTech]
+            )
+        })
+    }
     return(
         <section>
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -24,12 +32,19 @@ function TechStack(){
                             rating={e.rating}
                             difficulty={e.difficulty}
                             badge={e.badge}
+                            addToStack = {handleAddToStack}
                         />
                     )
                 })}
             </section>
             <section>
-                
+                {selectedTechs.map((tech)=>{
+                    return(
+                        <div>
+                            <p>{tech.name}</p>
+                        </div>
+                    )
+                })}
             </section>
         </section>
         
