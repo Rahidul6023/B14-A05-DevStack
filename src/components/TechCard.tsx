@@ -18,17 +18,10 @@ const badgeStyles: Record<string, string> = {
 export interface TechCardProps extends Technology {
     addToStack?: (id: string) => void;
     onAddToStack?: (tech: Technology) => void;
+    isSelected:boolean;
 }
 
-function TechCard({ id,name, category, description, icon, rating, difficulty, badge,addToStack}: TechCardProps) {
-
-    const[isSelected,setIsSelected] = useState<boolean>(false)
-
-    function handleClick(id:string){
-        addToStack(id)
-        setIsSelected(prev=>!prev)
-    }
-
+function TechCard({ id,name, category, description, icon, rating, difficulty, badge,isSelected,addToStack}: TechCardProps) {
     return (
         <article className="flex flex-col justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-xs hover:shadow-md transition-shadow">
             <div>
@@ -70,7 +63,7 @@ function TechCard({ id,name, category, description, icon, rating, difficulty, ba
                         Added To Stack
                     </p>
                 ) : (
-                <button className="mt-4 w-full rounded-lg bg-[#0b0f19] py-2.5 text-sm font-medium text-white hover:bg-gray-800 transition-colors" onClick={()=>handleClick(id)}>
+                <button className="mt-4 w-full rounded-lg bg-[#0b0f19] py-2.5 text-sm font-medium text-white hover:bg-gray-800 transition-colors" onClick={()=>addToStack(id)}>
                 Add to Stack
                 </button>
                 )

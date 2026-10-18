@@ -52,6 +52,9 @@ function TechStack() {
                                 difficulty={e.difficulty}
                                 badge={e.badge}
                                 addToStack={handleAddToStack}
+                                isSelected={
+                                    selectedTechs.some((elem)=>elem.id===e.id)
+                                }
                             />
                         )
                     })}
