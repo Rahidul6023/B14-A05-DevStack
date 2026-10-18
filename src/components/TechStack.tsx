@@ -19,6 +19,9 @@ function TechStack() {
             )
         })
     }
+    function removeAll(){
+        setSelectedTechs([])
+    }
 
     return (
         <section className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
@@ -91,9 +94,7 @@ function TechStack() {
                                             </div>
                                         </div>
                                         <button
-                                            type="button"
                                             className="text-gray-400 hover:text-gray-600 transition-colors p-1"
-                                            aria-label={`Remove ${tech.name}`}
                                         >
                                             <svg
                                                 className="h-4 w-4"
@@ -114,8 +115,8 @@ function TechStack() {
                             })}
 
                             <button
-                                type="button"
                                 className="mt-6 w-full rounded-xl border border-rose-300 py-2.5 text-center text-sm font-semibold text-rose-500 hover:bg-rose-50 transition-colors"
+                                onClick={()=>{removeAll()}}
                             >
                                 Remove All
                             </button>
