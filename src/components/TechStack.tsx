@@ -1,14 +1,31 @@
 import TechCard from "./TechCard"
-import technologies from "../data/technologies.json"
 import { useEffect, useState } from "react"
 import type { Technology } from "../interface/technology"
 
 function TechStack() {
     const [technology, setTechnologies] = useState<Technology[]>([])
     const [selectedTechs, setSelectedTechs] = useState<Technology[]>([])
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        setTechnologies(technologies)
+        setLoading(true)
+        setError(null)
+        fetch("/technologies.json")
+            .then((res) =>{
+                if (!res.ok){
+                    throw new Error("Failed to fetch technologies")
+                }
+                return res.json()
+            })
+            .then((data: Technology[]) => {
+                setTechnologies(data)
+                setLoading(false)
+            })
+            .catch((err) => {
+                setError(err instanceof Error ? err.message : "An error occurred")
+                setLoading(false)
+            })
     }, [])
 
     function handleAddToStack(id: string) {
@@ -46,27 +63,39 @@ function TechStack() {
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8 items-start">
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {technology.map((e) => {
-                        return (
-                            <TechCard
-                                key={e.id}
-                                id={e.id}
-                                name={e.name}
-                                category={e.category}
-                                description={e.description}
-                                icon={e.icon}
-                                rating={e.rating}
-                                difficulty={e.difficulty}
-                                badge={e.badge}
-                                addToStack={handleAddToStack}
-                                isSelected={
-                                    selectedTechs.some((elem)=>elem.id===e.id)
-                                }
-                            />
-                        )
-                    })}
-                </div>
+                {loading ? (
+                    <div className="flex-1 flex flex-col items-center justify-center py-24 text-gray-500">
+                        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-pink-600" />
+                        <p className="mt-4 text-sm font-medium text-gray-500">Loading technologies...</p>
+                    </div>
+                ) : error ? (
+                    <div className="flex-1 rounded-2xl border border-rose-200 bg-rose-50 p-8 text-center text-rose-600">
+                        <p className="text-base font-semibold">Error loading technologies</p>
+                        <p className="mt-1 text-sm text-rose-500">{error}</p>
+                    </div>
+                ) : (
+                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {technology.map((e) => {
+                            return (
+                                <TechCard
+                                    key={e.id}
+                                    id={e.id}
+                                    name={e.name}
+                                    category={e.category}
+                                    description={e.description}
+                                    icon={e.icon}
+                                    rating={e.rating}
+                                    difficulty={e.difficulty}
+                                    badge={e.badge}
+                                    addToStack={handleAddToStack}
+                                    isSelected={
+                                        selectedTechs.some((elem)=>elem.id===e.id)
+                                    }
+                                />
+                            )
+                        })}
+                    </div>
+                )}
 
                 <aside className="w-full lg:w-80 shrink-0 rounded-2xl border border-gray-100 bg-white p-6 shadow-xs lg:sticky lg:top-6">
                     <h3 className="text-xl font-bold text-gray-900">Your Stack</h3>
