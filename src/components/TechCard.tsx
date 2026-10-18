@@ -20,9 +20,6 @@ export interface TechCardProps extends Technology {
 }
 
 function TechCard({ id,name, category, description, icon, rating, difficulty, badge,addToStack}: TechCardProps) {
-    function onButtonClick(){
-
-    }
     return (
         <article className="flex flex-col justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-xs hover:shadow-md transition-shadow">
             <div>
