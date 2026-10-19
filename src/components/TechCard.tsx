@@ -1,5 +1,4 @@
 import type { Technology } from "../interface/technology"
-import { useState } from "react";
 
 const badgeStyles: Record<string, string> = {
     Popular: "border-sky-200 bg-sky-50 text-sky-600",

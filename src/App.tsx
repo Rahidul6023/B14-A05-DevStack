@@ -1,6 +1,7 @@
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import TechStack from "./components/TechStack"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <Hero />
       <TechStack />
+      <Footer />
     </div>
   )
 }
