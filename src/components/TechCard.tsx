@@ -15,8 +15,7 @@ const badgeStyles: Record<string, string> = {
 }
 
 export interface TechCardProps extends Technology {
-    addToStack?: (id: string) => void;
-    onAddToStack?: (tech: Technology) => void;
+    addToStack: (id: string) => void;
     isSelected:boolean;
 }
 
